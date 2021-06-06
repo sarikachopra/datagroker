@@ -1,0 +1,141 @@
+import React,{Component } from "react";
+
+export default class FormDataComponent extends Component{
+    userData;
+    constructor(props){
+        super(props);
+
+        this.onChangeFname=this.onChangFname.bind(this);
+        this.onChangeLname=this.onChangLname.bind(this);
+        this.onChangeEmail=this.onChangEmail.bind(this);
+        this.onChangePhone=this.onChangPhone.bind(this);
+        this.onChangeBaname=this.onChangBaname.bind(this);
+        this.onChangeAchname=this.onChangAchname.bind(this);
+        this.onChangeAcnum=this.onChangAcnum.bind(this);
+        this.onChangeIfsc=this.onChangIfsc.bind(this);
+        this.onSubmit=this.onSubmit.bind(this);
+
+        this.state={
+        fname:'',
+        lname:'',
+        email:'',
+        phone:'',
+        baname:'',
+        achname:'',
+        acnum:'',
+        ifsc:''
+        }
+    }
+    onChangeFname(e){
+        this.setState({fname: e.target.value})
+    }
+    onChangeLname(e){
+        this.setState({lname: e.target.value})
+    }
+    onChangeEmail(e){
+        this.setState({email: e.target.value})
+    }
+    onChangePhone(e){
+        this.setState({phone: e.target.value})
+    }
+    onChangeBaname(e){
+        this.setState({baname: e.target.value})
+    }
+    onChangeAchname(e){
+        this.setState({achname: e.target.value})
+    }
+    onChangeAcnum(e){
+        this.setState({acnum: e.target.value})
+    }
+    onChangeIfsc(e){
+        this.setState({ifsc: e.target.value})
+    }
+    onSubmit(e){
+        e.preventDefault()
+    }
+    componentDidMount(){
+        this.userData=JSON.parse(localStorage.getItem('user'));
+        if(localStorage.getItem('user')){
+        this.setState({
+            fname:this.userData.fname,
+            lname:this.userData.lname,
+            email:this.userData.email,
+            phone:this.userData.phone,
+            baname:this.userData.baname,
+            achname:this.userData.achname,
+            acnum:this.userData.acnum,
+            ifsc:this.userData.ifsc
+        })
+     }else{
+        this.setState({
+            fname:'',
+            lname:'',
+            email:'',
+            phone:'',
+            baname:'',
+            achname:'',
+            acnum:'',
+            ifsc:''
+        })
+      }
+    }
+    componentWillUpdate(nextprops,nextState){
+        localStorage.setItem('user',JSON.stringify(nextState));
+    }
+    render(){
+        return(
+        
+        
+
+        
+        
+        <div>
+            <form className="bankform" onSubmit={this.onSubmit} >
+                    <h1>My Bank</h1> 
+                    <p>Details Filling Form</p>
+                    <hr></hr>
+                    <div className="persdetailpart">
+                    <h2>Fill Your Personal Details here</h2>
+                        <div className="inputdiv">
+                        <label>First Name: --------------></label>
+                        <input type="text" value={this.state.fname} onChange={this.onChangeFname}/>
+                        </div>
+                        <div className="inputdiv">
+                        <label>Last Name: --------------></label>
+                        <input type="text" value={this.state.lname} onChange={this.onChangeLname} />
+                        </div>
+                        <div className="inputdiv">
+                        <label>Email: --------------------></label>
+                        <input type="email" value={this.state.email} onChange={this.onChangeEmail}/>
+                        </div>
+                        <div className="inputdiv">
+                        <label>Phone: -------------------></label>
+                        <input type="tel" value={this.state.phone} onChange={this.onChangePhone}/>
+                        </div>
+        
+                        </div>
+                        <div className="bankdetailpart">
+           <h2>Fill Your Bank Details here</h2>
+                        <div className="inputdiv">
+                        <label>Bank Name: --------------></label>
+                        <input type="text" value={this.state.baname} onChange={this.onChangeBaname} />
+                        </div>
+                        <div className="inputdiv">
+                        <label>Account Holder Name: --></label>
+                        <input type="text" value={this.state.achname} onChange={this.onChangeAchname} />
+                        </div>
+                        <div className="inputdiv">
+                        <label>Account Number: --------></label>
+                        <input type="text" value={this.state.acnum} onChange={this.onChangeAcnum} />
+                        </div>
+                        <div className="inputdiv">
+                            <label>Ifsc Code: -----------------></label>
+                            <input type="text" value={this.state.ifsc} onChange={this.onChangeIfsc} />
+                        </div>
+                    </div>
+                    <button className="button" type="submit">Submit All Detail</button>  
+            </form>
+        </div>
+        )
+    }
+}
